@@ -1,0 +1,52 @@
+/* import roboto */
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+* {
+    --backgroundColor: #A2D2FF;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto', sans-serif;
+    color: #000;
+}
+
+.app__title {
+    background-color: var(--backgroundColor);
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.app__title h1 {
+    color: #fff;
+}
+
+.app__container {
+    border-radius: 4px;
+    margin: 0 auto;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sensors__container {
+}
+
+.fa-lightbulb {
+    color: #000;
+}

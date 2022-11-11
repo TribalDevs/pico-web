@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- import font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>3.2 Pico W, Webserver con 3 sensores y animación UIX</title>
+  </head>
+  <body>
+    <div class="app__container">
+      <div class="app__title">
+        <h1>3.2 Pico W, Webserver con 3 sensores y animación UIX</h1>
+      </div>
+      <!-- <div class="sensor__selector">
+        <div class="sensor__selector__item" id="joystick">
+          <h4>Joystick</h4>
+        </div>
+        <div class="sensor__selector__item" id="led">
+          <h4>Led</h4>
+        </div>
+        <div class="sensor__selector__item" id="buzzer">
+          <h4>Buzzer</h4>
+        </div>
+      </div> -->
+      <div class="sensors__container">
+        <!-- Joystick -->
+        <div class="sensor__container">
+          <div class="sensor__title">
+            <h4>Joystick</h4>
+          </div>
+          <div class="sensor__value">
+            <h4 id="temp">0</h4>
+          </div>
+        </div>
+        <!-- Led -->
+        <div class="sensor__container">
+          <div class="sensor__title">
+            <h4>Led</h4>
+            <i class="fas fa-lightbulb"></i>
+          </div>
+        </div>
+        <!-- Buzzer -->
+        <div class="sensor__container">
+          <div class="sensor__title">
+            <h4>Buzzer</h4>
+          </div>
+          <div class="sensor__value">
+            <h4 id="pres">0</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
