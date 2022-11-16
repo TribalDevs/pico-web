@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <!-- import font awesome -->
+    <link rel="stylesheet" href="./styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -13,49 +12,32 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <title>3.2 Pico W, Webserver con 3 sensores y animación UIX</title>
+    <title>Pico W</title>
   </head>
   <body>
-    <div class="app__container">
-      <div class="app__title">
-        <h1>3.2 Pico W, Webserver con 3 sensores y animación UIX</h1>
+    <h2>3.2 Pico W, Webserver con 3 sensores y animación UIX</h2>
+    <div class="circuits__container">
+      <div class="circuit__container">
+        <div class="circuit__title">
+          <h4>Led KY-?</h4>
+        </div>
+        <div class="circuit__icon">
+          <i class="fas fa-lightbulb" id="led" style="color: #333"></i>
+        </div>
       </div>
-      <!-- <div class="sensor__selector">
-        <div class="sensor__selector__item" id="joystick">
-          <h4>Joystick</h4>
+      <div class="circuit__container">
+        <div class="circuit__title">
+          <h4>Buzzer KY-?</h4>
+          <i class="fas fa-volume-off" id="buzzer"></i>
         </div>
-        <div class="sensor__selector__item" id="led">
-          <h4>Led</h4>
+        <div class="circuit__icon"></div>
+      </div>
+      <div class="circuit__container">
+        <div class="circuit__title">
+          <h4>Joystick KY-?</h4>
         </div>
-        <div class="sensor__selector__item" id="buzzer">
-          <h4>Buzzer</h4>
-        </div>
-      </div> -->
-      <div class="sensors__container">
-        <!-- Joystick -->
-        <div class="sensor__container">
-          <div class="sensor__title">
-            <h4>Joystick</h4>
-          </div>
-          <div class="sensor__value">
-            <h4 id="temp">0</h4>
-          </div>
-        </div>
-        <!-- Led -->
-        <div class="sensor__container">
-          <div class="sensor__title">
-            <h4>Led</h4>
-            <i class="fas fa-lightbulb"></i>
-          </div>
-        </div>
-        <!-- Buzzer -->
-        <div class="sensor__container">
-          <div class="sensor__title">
-            <h4>Buzzer</h4>
-          </div>
-          <div class="sensor__value">
-            <h4 id="pres">0</h4>
-          </div>
+        <div class="circuit__icon">
+          <i class="fas fa-gamepad" id="joystick"></i>
         </div>
       </div>
     </div>
