@@ -54,6 +54,7 @@ def get_html(html_name, **kwargs):
     with open(html_name, 'r') as file:
         html = file.read()
     if bool(kwargs.get('playSong')):
+        print(f"playSong:{kwargs.get('playSong')}")
         html = html.replace('class="fas fa-volume-off"', 'class="fas fa-volume-on"')
         toPlay = True
     else:
@@ -62,6 +63,8 @@ def get_html(html_name, **kwargs):
     
     html = html.replace('id="led" style="color: #333"', f'id="led" style="color: {kwargs.get("color")}"')
     html = html.replace('id="joystick"></i>', f'id="joystick">x: {kwargs.get("x_stick")}, y: {kwargs.get("y_stick")}</i>')
+    print(kwargs.get('playSong'))
+    print(kwargs.get('color'))
     return html, toPlay
 
 # Wait for connection with 10 second timeout
@@ -123,28 +126,27 @@ while True:
         cl, addr = s.accept()
         print('Client connected from', addr)
         r = cl.recv(1024)
-        print(r)
+        
         r = str(r)
         sensor = r.find('/sensor/')
+        print(sensor)
         if sensor == 6:
-            if isButtonPushed == 0:
+            if isButtonPushed == 1:
                 playsong = True
             color = evalColor(x_stick, y_stick)
-            print('Color: %s' % color)
-            
-
-        
-            
+            print('in here')
         response, song = get_html('index.html', color=color, playSong=playSong, x_stick=x_stick, y_stick=y_stick)
+        cl.send('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
+        print('sent request')
         if song:
             playsong(buzzer)
-        cl.send('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
         cl.send(response)
         cl.close()
         
     except OSError as e:
         cl.close()
         print('Connection closed')
+
 
 
 
