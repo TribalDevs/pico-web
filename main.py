@@ -1,4 +1,4 @@
-i# Hecho por: @IsaacRFx - Edwin Isaac Rodriguez Flores
+# Hecho por: @IsaacRFx - Edwin Isaac Rodriguez Flores
 # Programa para iniciar un web server y manipular LED de pico desde éste
 
 
@@ -130,6 +130,7 @@ while True:
             if isButtonPushed == 0:
                 playsong = True
             color = evalColor(x_stick, y_stick)
+            print('Color: %s' % color)
             
 
         
