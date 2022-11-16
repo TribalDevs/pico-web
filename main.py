@@ -1,8 +1,6 @@
-# Hecho por: @IsaacRFx - Edwin Isaac Rodriguez Flores
+i# Hecho por: @IsaacRFx - Edwin Isaac Rodriguez Flores
 # Programa para iniciar un web server y manipular LED de pico desde éste
 
-# Hecho por: @IsaacRFx - Edwin Isaac Rodriguez Flores
-# Programa para iniciar un web server y manipular LED de pico desde éste
 
 import rp2
 import network
@@ -13,6 +11,22 @@ import time
 from secrets import secrets
 import socket
 import os
+from machine import Pin,ADC,PWM
+from sensores import playsong, bequiet, evalColor
+
+
+# SET UP BUZZER AND RGB LED
+buzzerPIN=16
+buzzer=PWM(Pin(buzzerPIN))
+
+xAxis = ADC(Pin(27))
+yAxis = ADC(Pin(26))
+SW = Pin(22,Pin.IN, Pin.PULL_UP)
+readDelay = 0.1
+
+red = Pin(13, Pin.OUT)
+green = Pin(14, Pin.OUT)
+blue = Pin(15, Pin.OUT)
 
 # Set country to avoid possible errors
 rp2.country('MX')
@@ -34,11 +48,21 @@ pw = secrets['pw']
 
 wlan.connect(ssid, pw)
 
-# Function to load in html page    
+# Function to load in html page
 def get_html(html_name, **kwargs):
+    toPlay = False
     with open(html_name, 'r') as file:
         html = file.read()
-    return html
+    if bool(kwargs.get('playSong')):
+        html = html.replace('class="fas fa-volume-off"', 'class="fas fa-volume-on"')
+        toPlay = True
+    else:
+        toPlay=False
+        bequiet(buzzer)
+    
+    html = html.replace('id="led" style="color: #333"', f'id="led" style="color: {kwargs.get("color")}"')
+    html = html.replace('id="joystick"></i>', f'id="joystick">x: {kwargs.get("x_stick")}, y: {kwargs.get("y_stick")}</i>')
+    return html, toPlay
 
 # Wait for connection with 10 second timeout
 timeout = 10
@@ -88,26 +112,31 @@ s.listen(1)
 # Listen for connections
 while True:	
     try:
-        isLedOn = 'OFF'
+        x_stick = xAxis.read_u16()
+        y_stick = yAxis.read_u16()
+        print('x: %s y: %s' % (x_stick, y_stick))
+        
+        isButtonPushed= SW.value()
+        print('Button: %s' % isButtonPushed)
+        playSong = False
+        color = 'blue'
         cl, addr = s.accept()
         print('Client connected from', addr)
-        r = cl.recv(1024
-                    print(r)
+        r = cl.recv(1024)
+        print(r)
         r = str(r)
-#         led_on = r.find('/led/on')
-#         led_off = r.find('/led/off')
-#         print(logs)
-#         if led_on == 6:
-#             isLedOn = 'ON'
-#             print(f'LED ON - ON: {led_on} OFF: {led_off}')
-#             led.value(1)
-#             
-#         if led_off == 6:
-#             isLedOn = 'OFF'
-#             print(f'LED OFF - ON: {led_on} OFF: {led_off}')
-#             led.value(0)
+        sensor = r.find('/sensor/')
+        if sensor == 6:
+            if isButtonPushed == 0:
+                playsong = True
+            color = evalColor(x_stick, y_stick)
             
-        response = get_html('index.html')
+
+        
+            
+        response, song = get_html('index.html', color=color, playSong=playSong, x_stick=x_stick, y_stick=y_stick)
+        if song:
+            playsong(buzzer)
         cl.send('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
         cl.send(response)
         cl.close()
@@ -115,5 +144,6 @@ while True:
     except OSError as e:
         cl.close()
         print('Connection closed')
+
 
 
